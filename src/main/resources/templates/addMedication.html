@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="pharmacyLayout/main_Pharmacy.html">
+<title >Add Medication Form</title>
+<div layout:fragment="pharmacyContent">
+    <div class="row mt-3">
+        <div class="col-8 mx-auto">
+
+            <h5 class="text-center mb-4">Form to Add New Medication: </h5>
+            <form th:action="@{'/addMedication'}" method="post">
+
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-name">Name: </span>
+                    </div>
+                    <input type="text" class="form-control col-10" aria-label="Default" aria-describedby="inputGroup-sizing-default-name" name = "name" placeholder="Insert Medication Name" >
+                </div>
+
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-dosage">Dosage: </span>
+                    </div>
+                    <input type="text" class="form-control col-10" aria-label="Default" aria-describedby="inputGroup-sizing-default-dosage" name = "dosage" placeholder="Insert Dosage" >
+                </div>
+
+
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-form">Form: </span>
+                    </div>
+                    <input type="text" class="form-control col-10" aria-label="Default" aria-describedby="inputGroup-sizing-default-form" name = "form" placeholder="Insert Form" >
+                </div>
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-country">Country: </span>
+                    </div>
+
+                    <select name = "country_id" class="form-select col-10" aria-label="Default" aria-describedby="inputGroup-sizing-default-country">
+                        <option th:each = "cnt : ${countries}" th:value="${cnt.id}" th:text="${cnt.name}"></option>
+                    </select>
+                </div>
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-price">Price: </span>
+                    </div>
+                    <input type="text" class="form-control col-10" aria-label="Default" aria-describedby="inputGroup-sizing-default-dosage" name = "price" placeholder="Insert Price" >
+                </div>
+
+
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-availability"> Availability: </span>
+                    </div>
+                    <input type="text" class="form-control col-10" aria-label="Default" aria-describedby="inputGroup-sizing-default-availability" name = "availability" placeholder="Insert Availability of Medication" >
+                </div>
+
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-quantity">Quantity: </span>
+                    </div>
+                    <input type="number" class="form-control col-2" aria-label="Default" aria-describedby="inputGroup-sizing-default-quantity" name = "quantity" placeholder="Insert Quantity" >
+                </div>
+
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-image">Link to photo: </span>
+                    </div>
+                    <input type="text" class="form-control col-2" aria-label="Default" aria-describedby="inputGroup-sizing-default-image" name = "image" placeholder="Insert URL Link to Image" >
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-12 text-center" >
+                        <button class = "btn btn-success">Add Medication</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</html>

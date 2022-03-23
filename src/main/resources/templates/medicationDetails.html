@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="pharmacyLayout/main_Pharmacy.html">
+<div layout:fragment="pharmacyContent">
+    <div class="row mt-3">
+        <div class="col-6 mx-auto ">
+            <img th:src="@{${medication.image}}"/>
+        </div>
+        <div class="col-6">
+            <form th:action="@{'/saveMedication'}" method="post">
+                <input type = "hidden"  name = "id"  th:value="${medication.id}" th:width="120" th:height="120">
+
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-name">Name: </span>
+                    </div>
+                    <input type="text" class="form-control col-10" aria-label="Default" aria-describedby="inputGroup-sizing-default-name" name = "name" placeholder="Insert Medication Name" th:value="${medication.name}">
+                </div>
+
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-dosage">Dosage: </span>
+                    </div>
+                    <input type="text" class="form-control col-10" aria-label="Default" aria-describedby="inputGroup-sizing-default-dosage" name = "dosage" placeholder="Insert Dosage" th:value="${medication.dosage}">
+                </div>
+
+
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-form">Form: </span>
+                    </div>
+                    <input type="text" class="form-control col-10" aria-label="Default" aria-describedby="inputGroup-sizing-default-form" name = "form" placeholder="Insert Form" th:value="${medication.form}">
+                </div>
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-country">Country: </span>
+                    </div>
+                    <select name = "country_id" class="form-select col-10" aria-label="Default" aria-describedby="inputGroup-sizing-default-country">
+                        <option th:each = "cnt : ${countries}" th:value="${cnt.id}" th:text="${cnt.name}" th:selected="${medication.country != null && cnt.id ==medication.country.id}"></option>
+                    </select>
+                </div>
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-price">Price: </span>
+                    </div>
+                    <input type="number" class="form-control col-10" aria-label="Default" aria-describedby="inputGroup-sizing-default-dosage" name = "price" placeholder="Insert Price" th:value="${medication.price}">
+                </div>
+
+
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-availability"> Availability: </span>
+                    </div>
+                    <input type="text" class="form-control col-10" aria-label="Default" aria-describedby="inputGroup-sizing-default-availability" name = "availability" placeholder="Insert availability" th:value="${medication.availability}">
+                </div>
+
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-quantity">Quantity: </span>
+                    </div>
+                    <input type="number" class="form-control col-2" aria-label="Default" aria-describedby="inputGroup-sizing-default-quantity" name = "quantity" placeholder="Insert Quantity" th:value="${medication.quantity}">
+                </div>
+
+
+
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend col-2">
+                        <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-category">Category: </span>
+                    </div>
+                    <p type = "text" class="form-control col-10" th:each="ct : ${medication.categories}" th:text="${ct.name}" aria-label="Default" aria-describedby="inputGroup-sizing-default-category">
+
+                </div>
+
+
+
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <button class = "btn btn-success">Save Medication</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            Delete Medication
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+
+            <div class = "row mt-3">
+                <div class="col-12">
+                    <h5 class="mb-4">Please select the categories of medication: </h5>
+                    <table class = "table table-striped ">
+                        <tr th:each="ct : ${medication.categories}">
+                            <form th:action="${'/unassign-category'}" method="post">
+                                <input type = "hidden" name = "id" th:value="${ct.id}">
+                                <input type = "hidden" name = "medication_id" th:value="${medication.id}">
+                                <td th:text="${ct.name}"></td>
+                                <td width = "10%">
+                                    <button class = "btn btn-danger btn-sm"> - </button>
+                                </td>
+                            </form>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class = "row mt-3">
+                <div class="col-12">
+                    <table class = "table table-striped ">
+                        <tr th:each="ct : ${categories}">
+                            <form th:action="${'/assign-category'}" method="post">
+                                <input type = "hidden" name = "id" th:value="${ct.id}">
+                                <input type = "hidden" name = "medication_id" th:value="${medication.id}">
+                                <td th:text="${ct.name}"></td>
+                                <td width = "10%">
+                                    <button class = "btn btn-success btn-sm"> + </button>
+                                </td>
+                            </form>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form th:action="${'/deleteMedication'}" method="post">
+                            <input type = "hidden"  name = "id"  th:value="${medication.id}">
+
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Delete Medication</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                    <button type = "submit" class="btn btn-danger">Yes</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+</html>

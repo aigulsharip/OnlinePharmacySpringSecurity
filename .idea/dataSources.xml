@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/spring_security_db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="online_pharmacy_db@localhost" uuid="cf28b5a8-c0ea-492d-9a15-919374d47744">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/online_pharmacy_db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
