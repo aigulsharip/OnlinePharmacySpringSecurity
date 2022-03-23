@@ -3,7 +3,7 @@
      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{'/'}">Spring Security App</a>
+        <a class="navbar-brand" th:href="@{'/'}">Online Pharmacy</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -28,6 +28,12 @@
                 <li class="nav-item" sec:authorize="hasAnyRole('ROLE_MODERATOR')" >
                     <a class="nav-link" th:href="@{'/moderatorpanel'}" >Moderator Panel</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{'/medications/'}">All medications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{'/medications/addMedication'}">Add Medication</a>
+                </li>
 
                 <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,10 +48,11 @@
                     <form th:action="@{'signout'}" id = "signOutForm" method="post"></form>
 
                 </li>
-
-
-
             </ul>
+            <form class="d-flex" th:action="@{'/searchMedication'}">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
     </div>
 </nav>

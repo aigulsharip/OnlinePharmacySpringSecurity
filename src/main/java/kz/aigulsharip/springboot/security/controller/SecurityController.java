@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-public class MainController extends BaseController{
+public class SecurityController extends BaseController{
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;

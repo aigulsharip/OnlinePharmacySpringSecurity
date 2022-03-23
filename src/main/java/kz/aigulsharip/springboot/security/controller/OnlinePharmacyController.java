@@ -5,7 +5,7 @@ import kz.aigulsharip.springboot.security.model.Country;
 import kz.aigulsharip.springboot.security.model.Medication;
 import kz.aigulsharip.springboot.security.repository.MedicationRepository;
 import kz.aigulsharip.springboot.security.service.PharmacyService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping()
-public class OnlinePharmacyController {
-    /*
-
-    @Autowired
-    PharmacyService pharmacyService;
-
-    @Autowired
-    MedicationRepository medicationRepository;
+@RequiredArgsConstructor
+@RequestMapping(value = "/medications")
+public class OnlinePharmacyController  {
+    private final PharmacyService pharmacyService;
+    private final MedicationRepository medicationRepository;
 
     @GetMapping(value = "/")
     public String getAllMedications(Model model) {
@@ -137,7 +133,7 @@ public class OnlinePharmacyController {
             categories.add(category);
             medication.setCategories(categories);
             pharmacyService.saveMedication(medication);
-            return "redirect:/details/" + medicationId + ".html";
+            return "redirect:/medications/details/" + medicationId + ".html";
         }
         return "redirect:/";
     }
@@ -156,12 +152,12 @@ public class OnlinePharmacyController {
             categories.remove(category);
             medication.setCategories(categories);
             pharmacyService.saveMedication(medication);
-            return "redirect:/details/" + medicationId + ".html";
+            return "redirect:/medications/details/" + medicationId + ".html";
         }
         return "redirect:/";
 
 
     }
 
-     */
+
 }

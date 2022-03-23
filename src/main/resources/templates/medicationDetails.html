@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="pharmacyLayout/main_Pharmacy.html">
-<div layout:fragment="pharmacyContent">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+<div layout:fragment="mainContentPage">
     <div class="row mt-3">
         <div class="col-6 mx-auto ">
             <img th:src="@{${medication.image}}"/>
@@ -90,7 +90,7 @@
                     <h5 class="mb-4">Please select the categories of medication: </h5>
                     <table class = "table table-striped ">
                         <tr th:each="ct : ${medication.categories}">
-                            <form th:action="${'/unassign-category'}" method="post">
+                            <form th:action="${'/medications/unassign-category'}" method="post">
                                 <input type = "hidden" name = "id" th:value="${ct.id}">
                                 <input type = "hidden" name = "medication_id" th:value="${medication.id}">
                                 <td th:text="${ct.name}"></td>
@@ -108,7 +108,7 @@
                 <div class="col-12">
                     <table class = "table table-striped ">
                         <tr th:each="ct : ${categories}">
-                            <form th:action="${'/assign-category'}" method="post">
+                            <form th:action="${'/medications/assign-category'}" method="post">
                                 <input type = "hidden" name = "id" th:value="${ct.id}">
                                 <input type = "hidden" name = "medication_id" th:value="${medication.id}">
                                 <td th:text="${ct.name}"></td>
