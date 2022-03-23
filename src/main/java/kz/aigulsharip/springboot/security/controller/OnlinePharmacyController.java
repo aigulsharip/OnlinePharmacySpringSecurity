@@ -6,6 +6,7 @@ import kz.aigulsharip.springboot.security.model.Medication;
 import kz.aigulsharip.springboot.security.repository.MedicationRepository;
 import kz.aigulsharip.springboot.security.service.PharmacyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/medications")
-public class OnlinePharmacyController  {
+public class OnlinePharmacyController extends BaseController {
     private final PharmacyService pharmacyService;
     private final MedicationRepository medicationRepository;
 
@@ -24,6 +25,8 @@ public class OnlinePharmacyController  {
     public String getAllMedications(Model model) {
         List<Medication> medications = pharmacyService.getAllMedications();
         model.addAttribute("medications", medications);
+        model.addAttribute("currentUser", getCurrentUser());
+
         return "medications";
     }
 
@@ -33,11 +36,15 @@ public class OnlinePharmacyController  {
         model.addAttribute("countries", countries);
         List<Category> categories = pharmacyService.getAllCategories();
         model.addAttribute("categories", categories);
+        model.addAttribute("currentUser", getCurrentUser());
+
 
         return "addMedication";
     }
 
     @PostMapping(value = "/addMedication")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+
     public String addMedication(@RequestParam(name = "name") String name,
                                 @RequestParam(name = "dosage") String dosage,
                                 @RequestParam(name = "form") String form,
@@ -63,12 +70,33 @@ public class OnlinePharmacyController  {
 
     }
 
-    @GetMapping(value = "/details/{id}.html")
-    public String readMedication(Model model, @PathVariable(name = "id") Long id) {
+    @GetMapping(value = "/details/edit/{id}.html")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    public String readMedicationForAdmin(Model model, @PathVariable(name = "id") Long id) {
         Medication medication = pharmacyService.getMedication(id);
         model.addAttribute("medication", medication);
         List<Country> countries = pharmacyService.getAllCountries();
         model.addAttribute("countries", countries);
+        model.addAttribute("currentUser", getCurrentUser());
+
+        if (medication != null) {
+            List<Category> categories = pharmacyService.getCategoriesByMedication(medication);
+            model.addAttribute("categories", categories);
+
+        }
+        return "medicationDetailsForAdmin";
+    }
+
+
+
+    @GetMapping(value = "/details/{id}.html")
+    public String readMedicationForUsers(Model model, @PathVariable(name = "id") Long id) {
+        Medication medication = pharmacyService.getMedication(id);
+        model.addAttribute("medication", medication);
+        List<Country> countries = pharmacyService.getAllCountries();
+        model.addAttribute("countries", countries);
+        model.addAttribute("currentUser", getCurrentUser());
+
         if (medication != null) {
             List<Category> categories = pharmacyService.getCategoriesByMedication(medication);
             model.addAttribute("categories", categories);
@@ -76,7 +104,7 @@ public class OnlinePharmacyController  {
         }
 
 
-        return "medicationDetails";
+        return "medicationDetailsForUsers";
     }
 
     @PostMapping(value = "/saveMedication")
@@ -108,7 +136,6 @@ public class OnlinePharmacyController  {
     @PostMapping(value = "/deleteMedication")
     public String deleteMedication(@RequestParam(name = "id") Long id) {
 
-
         Medication medication = pharmacyService.getMedication(id);
 
         if (medication != null) {
@@ -120,6 +147,8 @@ public class OnlinePharmacyController  {
     }
 
     @PostMapping(value = "/assign-category")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+
     public String assignCategory(@RequestParam(name = "id") Long id,
                                  @RequestParam(name = "medication_id") Long medicationId) {
         Medication medication = pharmacyService.getMedication(medicationId);
@@ -133,12 +162,13 @@ public class OnlinePharmacyController  {
             categories.add(category);
             medication.setCategories(categories);
             pharmacyService.saveMedication(medication);
-            return "redirect:/medications/details/" + medicationId + ".html";
+            return "redirect:/medications/details/edit/" + medicationId + ".html";
         }
         return "redirect:/";
     }
 
     @PostMapping(value = "/unassign-category")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public String unAssignCategory(@RequestParam(name = "id") Long id,
                                    @RequestParam(name = "medication_id") Long medicationId) {
         Medication medication = pharmacyService.getMedication(medicationId);
@@ -152,12 +182,34 @@ public class OnlinePharmacyController  {
             categories.remove(category);
             medication.setCategories(categories);
             pharmacyService.saveMedication(medication);
-            return "redirect:/medications/details/" + medicationId + ".html";
+            return "redirect:/medications/details/edit/" + medicationId + ".html";
         }
         return "redirect:/";
 
 
     }
+
+    /*
+    @PostMapping(value = "/searchMedication")
+    public String saveMedication(@RequestParam(name = "name") String name) {
+        Medication medication = pharmacyService.getMedication(id);
+        Country country = pharmacyService.getCountry(countryId);
+        if (medication != null && country != null) {
+
+            medication.setName(name);
+            medication.setDosage(dosage);
+            medication.setForm(form);
+            medication.setPrice(price);
+            medication.setQuantity(quantity);
+            medication.setCountry(country);
+            pharmacyService.saveMedication(medication);
+        }
+
+        return "redirect:/";
+
+    }
+
+     */
 
 
 }

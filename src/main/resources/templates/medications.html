@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
 <div layout:fragment="mainContentPage">
     <div class="row mt-3">
         <div class="col-8"></div>
        <div class = "col-4">
-           <form class="d-flex" th:action="@{'/searchMedication'}">
+           <form class="d-flex" th:action="@{'/medications/searchMedication'}">
                <div class="input-group">
                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                    <button type="submit" class="btn btn-outline-primary">search</button>
@@ -17,7 +18,6 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>NAME</th>
                     <th>DOSAGE</th>
                     <th>FORM</th>
@@ -25,20 +25,23 @@
                     <th>PRICE</th>
                     <th>AVAILABILITY</th>
                     <th width="7%">DETAILS</th>
+                    <th width="5%" sec:authorize="hasAnyRole('ROLE_ADMIN')">EDIT MEDICATIONS</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="med: ${medications}">
-                    <td th:text = "${med.id}"></td>
                     <td th:text = "${med.name}"></td>
                     <td th:text = "${med.dosage}"></td>
                     <td th:text = "${med.form}"></td>
                     <td th:text = "${med.country.name}"></td>
                     <td th:text = "${med.price}"></td>
                     <td th:text = "${med.availability}"></td>
-
-                    <td>
+                    <td >
                         <a th:href="@{'/medications/details/' + ${med.id} + '.html'}" class="btn btn-primary btn-sm">DETAILS</a>
+                    </td>
+
+                    <td sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                        <a th:href="@{'/medications/details/edit/' + ${med.id} + '.html'}" class="btn btn-warning btn-sm">EDIT MEDICATIONS</a>
                     </td>
                 </tr>
 

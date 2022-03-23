@@ -7,7 +7,8 @@
             <img th:src="@{${medication.image}}"/>
         </div>
         <div class="col-6">
-            <form th:action="@{'/saveMedication'}" method="post">
+            <h3>Edit Medication Details </h3>
+            <form th:action="@{'/medications/saveMedication'}" method="post">
                 <input type = "hidden"  name = "id"  th:value="${medication.id}" th:width="120" th:height="120">
 
                 <div class="input-group mb-3 row">
