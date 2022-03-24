@@ -189,27 +189,22 @@ public class OnlinePharmacyController extends BaseController {
 
     }
 
-    /*
+
     @PostMapping(value = "/searchMedication")
-    public String saveMedication(@RequestParam(name = "name") String name) {
-        Medication medication = pharmacyService.getMedication(id);
-        Country country = pharmacyService.getCountry(countryId);
-        if (medication != null && country != null) {
+    public String searchMedication(@RequestParam(name = "name") String name, Model model) {
+        Medication medication = pharmacyService.getMedicationByName(name);
+         if (medication != null ) {
+            model.addAttribute("medication", medication);
+            //Long medicationId = medication.getId();
+            //return "redirect:/medications/details/" + medicationId + ".html";
+            return "foundMedicationDetails";
 
-            medication.setName(name);
-            medication.setDosage(dosage);
-            medication.setForm(form);
-            medication.setPrice(price);
-            medication.setQuantity(quantity);
-            medication.setCountry(country);
-            pharmacyService.saveMedication(medication);
-        }
+         }
+        return "404";
 
-        return "redirect:/";
 
     }
 
-     */
 
 
 }

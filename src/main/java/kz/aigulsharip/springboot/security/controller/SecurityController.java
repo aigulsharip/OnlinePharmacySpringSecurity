@@ -1,6 +1,8 @@
 package kz.aigulsharip.springboot.security.controller;
 
 import kz.aigulsharip.springboot.security.model.AuthUser;
+import kz.aigulsharip.springboot.security.model.Medication;
+import kz.aigulsharip.springboot.security.service.PharmacyService;
 import kz.aigulsharip.springboot.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,17 +13,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class SecurityController extends BaseController{
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final PharmacyService pharmacyService;
+
 
     @GetMapping(value = "/")
-    public String indexPage(Model model) {
+    public String mainPage(Model model) {
         model.addAttribute("currentUser", getCurrentUser());
-        return "index";
+        List<Medication> medications = pharmacyService.getAllMedications();
+        model.addAttribute("medications", medications);
+
+        return "medications";
+        //return "index";
     }
 
     @GetMapping(value = "/signinpage")

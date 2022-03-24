@@ -68,6 +68,10 @@ public class PharmacyService {
         return possibleCategories;
     }
 
+    public Medication getMedicationByName(String name) {
+        return medicationRepository.findMedicationByName(name);
+    }
+
 
 
 

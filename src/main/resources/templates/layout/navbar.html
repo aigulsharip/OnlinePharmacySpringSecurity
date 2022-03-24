@@ -55,8 +55,8 @@
                 </li>
 
             </ul>
-            <form class="d-flex" th:action="@{'/searchMedication'}">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex" th:action="@{'/medications/searchMedication'}">
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name = "name">
                 <button class="btn btn-outline-light" type="submit">Search</button>
             </form>
 

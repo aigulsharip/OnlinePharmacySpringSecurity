@@ -8,8 +8,8 @@
        <div class = "col-4">
            <form class="d-flex" th:action="@{'/medications/searchMedication'}">
                <div class="input-group">
-                   <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                   <button type="submit" class="btn btn-outline-primary">search</button>
+                   <input type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name = "name"/>
+                   <button type="submit" class="btn btn-outline-primary">Search</button>
                </div>
            </form>
        </div>
@@ -25,7 +25,7 @@
                     <th>PRICE</th>
                     <th>AVAILABILITY</th>
                     <th width="7%">DETAILS</th>
-                    <th width="5%" sec:authorize="hasAnyRole('ROLE_ADMIN')">EDIT MEDICATIONS</th>
+                    <th width="5%" sec:authorize="hasAnyRole('ROLE_ADMIN')">EDIT</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,7 +41,7 @@
                     </td>
 
                     <td sec:authorize="hasAnyRole('ROLE_ADMIN')">
-                        <a th:href="@{'/medications/details/edit/' + ${med.id} + '.html'}" class="btn btn-warning btn-sm">EDIT MEDICATIONS</a>
+                        <a th:href="@{'/medications/details/edit/' + ${med.id} + '.html'}" class="btn btn-warning btn-sm">EDIT </a>
                     </td>
                 </tr>
 
