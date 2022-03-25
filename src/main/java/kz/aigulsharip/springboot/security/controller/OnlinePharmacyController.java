@@ -30,6 +30,15 @@ public class OnlinePharmacyController extends BaseController {
         return "medications";
     }
 
+    @GetMapping(value = "/album")
+    public String getAllMedicationsAlbum(Model model) {
+        List<Medication> medications = pharmacyService.getAllMedications();
+        model.addAttribute("medications", medications);
+        model.addAttribute("currentUser", getCurrentUser());
+
+        return "medicationsAlbum";
+    }
+
     @GetMapping(value = "/addMedication")
     public String addMedicationPage(Model model) {
         List<Country> countries = pharmacyService.getAllCountries();
@@ -148,7 +157,6 @@ public class OnlinePharmacyController extends BaseController {
 
     @PostMapping(value = "/assign-category")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-
     public String assignCategory(@RequestParam(name = "id") Long id,
                                  @RequestParam(name = "medication_id") Long medicationId) {
         Medication medication = pharmacyService.getMedication(medicationId);
@@ -188,15 +196,32 @@ public class OnlinePharmacyController extends BaseController {
 
 
     }
+    @GetMapping(value = "/403")
+    public String accessDeniedPage(Model model) {
+        model.addAttribute("currentUser", getCurrentUser());
+        return "403";
+    }
+
+    @GetMapping(value = "/404")
+    public String notFoundPage(Model model) {
+        model.addAttribute("currentUser", getCurrentUser());
+        return "404";
+    }
 
 
     @PostMapping(value = "/searchMedication")
     public String searchMedication(@RequestParam(name = "name") String name, Model model) {
+
         List<Medication> foundMedications = pharmacyService.getMedicationByName(name);
-        model.addAttribute("medications", foundMedications);
         model.addAttribute("currentUser", getCurrentUser());
 
-        return "foundMedications";
+        if (foundMedications != null) {
+            model.addAttribute("medications", foundMedications);
+            return "foundMedications";
+        }
+        //else return "redirect:/medications/404/";
+        return "404";
+
 
     }
 
