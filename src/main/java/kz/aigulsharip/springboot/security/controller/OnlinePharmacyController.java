@@ -192,16 +192,11 @@ public class OnlinePharmacyController extends BaseController {
 
     @PostMapping(value = "/searchMedication")
     public String searchMedication(@RequestParam(name = "name") String name, Model model) {
-        Medication medication = pharmacyService.getMedicationByName(name);
-         if (medication != null ) {
-            model.addAttribute("medication", medication);
-            //Long medicationId = medication.getId();
-            //return "redirect:/medications/details/" + medicationId + ".html";
-            return "foundMedicationDetails";
+        List<Medication> foundMedications = pharmacyService.getMedicationByName(name);
+        model.addAttribute("medications", foundMedications);
+        model.addAttribute("currentUser", getCurrentUser());
 
-         }
-        return "404";
-
+        return "foundMedications";
 
     }
 

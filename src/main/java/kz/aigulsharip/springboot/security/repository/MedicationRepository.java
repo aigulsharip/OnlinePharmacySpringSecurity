@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MedicationRepository extends JpaRepository<Medication, Long> {
 
-    Medication findMedicationByName(String name);
+    List<Medication> findMedicationByName(String name);
 
     /*
     List<Item> findAllByPriceGreaterThan(int price);
