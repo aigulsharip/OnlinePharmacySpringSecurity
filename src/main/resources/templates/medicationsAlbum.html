@@ -4,6 +4,107 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
 <div layout:fragment="mainContentPage">
     <div class="row mt-3">
+        <div class="col-3 mr-2">
+            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 320px;">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+                    <span class="fs-4"> Catalogue</span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link link-dark" aria-current="page">
+                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+                            Anti-inflammatory medications
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link link-dark">
+                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                            Anti-allergic medications
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link link-dark">
+                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                            Antibacterial and antibiotics
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link link-dark">
+                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+                            Antiviral medications
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link link-dark">
+                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                            Cardiovascular drugs
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="nav-link link-dark">
+                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                            Dental medications
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link link-dark">
+                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                            Digestive system
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link link-dark">
+                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                            Flu and cold
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="nav-link link-dark">
+                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+                            Painkillers and antispasmodics
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+
+
+        </div>
+        <div class="col-9 ">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://biosfera.kz/image/data/news/2022/02.22/Untitled-1%20(1).jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://biosfera.kz/image/data/news/2022/02.22/anzibel.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://biosfera.kz/image/data/news/2021/10.21/omezreddys.jpg" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+        </div>
+
         <section class="py-5 text-center container">
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
@@ -28,8 +129,12 @@
                                     <div class="card shadow-sm">
                                         <img class="bd-placeholder-img card-img-top"  width="100%" height="225" th:src="@{${med.image}}"  alt="">
                                         <div class="card-body">
-                                            <h5 class="card-text" th:text = "${med.name} + ' ' + ${med.dosage} + ' ' + ${med.form} + ', '+ ${med.country.name} ">  </h5>
-                                            <p class="card-text" th:text = "${med.price}"> </p>
+                                            <h5 class="card-text text-center" th:text = "${med.name} + ' ' + ${med.dosage} + ' ' + ${med.form} + ', '+ ${med.country.name} ">  </h5>
+                                            <h4 class="card-text text-center text-primary fw-bold" th:text = "${med.price} + '₸'" > </h4>
+                                            <div class="text-center">
+                                                <button class = "btn btn-success text-center">Add to Cart</button>
+
+                                            </div>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="btn-group">
                                                     <a th:href="@{'/medications/details/' + ${med.id} + '.html'}" class="btn btn-sm btn-outline-secondary">View</a>
@@ -170,42 +275,7 @@
         </div>
 
 
-        <div class="col-12">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>NAME</th>
-                    <th>DOSAGE</th>
-                    <th>FORM</th>
-                    <th>COUNTRY</th>
-                    <th>PRICE</th>
-                    <th>AVAILABILITY</th>
-                    <th width="7%">DETAILS</th>
-                    <th width="5%" sec:authorize="hasAnyRole('ROLE_ADMIN')">EDIT</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="med: ${medications}">
-                    <td th:text = "${med.name}"></td>
-                    <td th:text = "${med.dosage}"></td>
-                    <td th:text = "${med.form}"></td>
-                    <td th:text = "${med.country.name}"></td>
-                    <td th:text = "${med.price}"></td>
-                    <td th:text = "${med.availability}"></td>
-                    <td >
-                        <a th:href="@{'/medications/details/' + ${med.id} + '.html'}" class="btn btn-primary btn-sm">DETAILS</a>
-                    </td>
 
-                    <td sec:authorize="hasAnyRole('ROLE_ADMIN')">
-                        <a th:href="@{'/medications/details/edit/' + ${med.id} + '.html'}" class="btn btn-warning btn-sm">EDIT </a>
-                    </td>
-                </tr>
-
-
-
-                </tbody>
-            </table>
-        </div>
     </div>
 </div>
 </html>

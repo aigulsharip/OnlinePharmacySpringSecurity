@@ -8,9 +8,29 @@
             <h1 class="text-center">WELCOME <span th:text="${currentUser!=null?currentUser.fullName:''}"> </span></h1>
         </div>
     </div>
+
+    <h2 class="">Profile Details</h2>
+    <div class="col-6 ">
+
+        <div class="input-group mb-3 row">
+            <div class="input-group-prepend col-2">
+                <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-name">Full Name: </span>
+            </div>
+            <input type="text" class="form-control col-10" aria-label="Default" aria-describedby="inputGroup-sizing-default-name"  readonly th:value="${currentUser.fullName}">
+        </div>
+
+        <div class="input-group mb-3 row">
+            <div class="input-group-prepend col-2">
+                <span class="input-group-text bg-white border-0" id="inputGroup-sizing-default-email">Email: </span>
+            </div>
+            <input type="text" class="form-control col-10" aria-label="Default" aria-describedby="inputGroup-sizing-default-email"  readonly th:value="${currentUser.email}">
+        </div>
+    </div>
+
+    <h2 class="">Change the password</h2>
     <form th:action="@{'/updatepassword'}" method="post">
         <div class="row">
-            <div class="col-12">
+            <div class="col-6">
                 <label>OLD PASSWORD: </label>
             </div>
         </div>
@@ -55,11 +75,12 @@
 
 
     </form>
-
-
-
-
 </div>
+
+
+
+
+
 
 </html>
 

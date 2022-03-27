@@ -3,14 +3,14 @@
      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{'/'}">Online Pharmacy</a>
+        <a class="navbar-brand" th:href="@{'/medications/album'}">Online Pharmacy</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{'/'}">Home</a>
+                    <a class="nav-link" th:href="@{'/medications/album'}">Home</a>
                 </li>
                 <li class="nav-item" >
                     <a class="nav-link" th:href="@{'/medications/'}" >Medications</a>
@@ -36,8 +36,6 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" th:href="@{'/profile'}">Profile</a></li>
-                        <li sec:authorize="hasAnyRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{'/medications/addMedication'}">Add Medication</a></li>
-
                         <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="JavaScript:void(0)" onclick="document.getElementById('signOutForm').submit();">Sign Out</a></li>
