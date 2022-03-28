@@ -12,9 +12,6 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{'/'}">Home</a>
                 </li>
-                <li class="nav-item" >
-                    <a class="nav-link" th:href="@{'/medications/list'}" >Medications List</a>
-                </li>
 
                 <li class="nav-item dropdown" sec:authorize="hasAnyRole('ROLE_ADMIN')">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -22,6 +19,9 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
                         <li><a class="dropdown-item" th:href="@{'/medications/addMedication'}">Add Medication</a></li>
+                        <li> <a class="dropdown-item" th:href="@{'/medications/list'}" >Medications List</a></li>
+
+
                         <li><a class="dropdown-item" href="#">Other functions</a></li>
 
                     </ul>
