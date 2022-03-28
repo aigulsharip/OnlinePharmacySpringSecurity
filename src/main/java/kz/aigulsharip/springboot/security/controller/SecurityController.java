@@ -1,6 +1,7 @@
 package kz.aigulsharip.springboot.security.controller;
 
 import kz.aigulsharip.springboot.security.model.AuthUser;
+import kz.aigulsharip.springboot.security.model.Category;
 import kz.aigulsharip.springboot.security.model.Medication;
 import kz.aigulsharip.springboot.security.service.PharmacyService;
 import kz.aigulsharip.springboot.security.service.UserService;
@@ -26,12 +27,15 @@ public class SecurityController extends BaseController{
 
     @GetMapping(value = "/")
     public String mainPage(Model model) {
-        model.addAttribute("currentUser", getCurrentUser());
         List<Medication> medications = pharmacyService.getAllMedications();
         model.addAttribute("medications", medications);
+        model.addAttribute("currentUser", getCurrentUser());
+        List<Category> categories = pharmacyService.getAllCategories();
+        model.addAttribute("categories", categories);
 
-        return "medications";
-        //return "index";
+
+        return "medicationsAlbum";
+
     }
 
     @GetMapping(value = "/signinpage")

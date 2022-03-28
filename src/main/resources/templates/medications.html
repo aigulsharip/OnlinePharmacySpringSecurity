@@ -4,17 +4,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
 <div layout:fragment="mainContentPage">
     <div class="row mt-3">
-        <div class="col-8"></div>
-       <div class = "col-4">
-           <form class="d-flex" th:action="@{'/medications/searchMedication'}" method="post">
-               <div class="input-group">
-                   <input type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name = "name"/>
-                   <button type="submit" class="btn btn-outline-primary">Search</button>
-               </div>
-           </form>
-
-
-       </div>
 
         <div class="col-12">
             <table class="table table-striped">

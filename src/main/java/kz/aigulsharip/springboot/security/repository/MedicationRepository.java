@@ -12,16 +12,7 @@ public interface MedicationRepository extends JpaRepository<Medication, Long> {
 
     List<Medication> findMedicationByName(String name);
 
-    /*
-    List<Item> findAllByPriceGreaterThan(int price);
-
-    @Query("SELECT it FROM Item it WHERE it.price >= :price")
-    List<Item> getTopItems(@Param("price") int price);
-
-     */
-
-
-
+    List<Medication> findAllByCategories_Id(Long category_id);
 
 
 }

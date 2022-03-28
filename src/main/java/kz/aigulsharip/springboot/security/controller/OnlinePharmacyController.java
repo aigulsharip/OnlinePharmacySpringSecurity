@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class OnlinePharmacyController extends BaseController {
     private final PharmacyService pharmacyService;
     private final MedicationRepository medicationRepository;
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/list")
     public String getAllMedications(Model model) {
         List<Medication> medications = pharmacyService.getAllMedications();
         model.addAttribute("medications", medications);
@@ -30,20 +31,13 @@ public class OnlinePharmacyController extends BaseController {
         return "medications";
     }
 
-    @GetMapping(value = "/album")
-    public String getAllMedicationsAlbum(Model model) {
-        List<Medication> medications = pharmacyService.getAllMedications();
-        model.addAttribute("medications", medications);
-        model.addAttribute("currentUser", getCurrentUser());
 
-        return "medicationsAlbum";
-    }
 
     @GetMapping(value = "/addMedication")
     public String addMedicationPage(Model model) {
         List<Country> countries = pharmacyService.getAllCountries();
         model.addAttribute("countries", countries);
-        List<Category> categories = pharmacyService.getAllCategories();
+        List<Category> categories = pharmacyService.getAllCategoriesSorted();
         model.addAttribute("categories", categories);
         model.addAttribute("currentUser", getCurrentUser());
 
@@ -111,8 +105,6 @@ public class OnlinePharmacyController extends BaseController {
             model.addAttribute("categories", categories);
 
         }
-
-
         return "medicationDetailsForUsers";
     }
 
@@ -209,21 +201,36 @@ public class OnlinePharmacyController extends BaseController {
     }
 
 
-    @PostMapping(value = "/searchMedication")
+    @GetMapping(value = "/searchMedication")
     public String searchMedication(@RequestParam(name = "name") String name, Model model) {
-
         List<Medication> foundMedications = pharmacyService.getMedicationByName(name);
         model.addAttribute("currentUser", getCurrentUser());
+        List<Category> categories = pharmacyService.getAllCategoriesSorted();
+        model.addAttribute("categories", categories);
 
-        if (foundMedications != null) {
+
+        if (!CollectionUtils.isEmpty(foundMedications)) {
             model.addAttribute("medications", foundMedications);
-            return "foundMedications";
+            return "searchMedications";
         }
-        //else return "redirect:/medications/404/";
         return "404";
 
 
     }
+
+    @GetMapping(value = "/catalog/{id}")
+    public String getMedicationsByCategory(Model model, @PathVariable(name = "id") Long id) {
+
+        List<Medication> medications = pharmacyService.getMedicationByCategory(id);
+        List<Category> categories = pharmacyService.getAllCategoriesSorted();
+
+        model.addAttribute("medications", medications);
+        model.addAttribute("currentUser", getCurrentUser());
+        model.addAttribute("categories", categories);
+        return "medicationsAlbum";
+    }
+
+
 
 
 

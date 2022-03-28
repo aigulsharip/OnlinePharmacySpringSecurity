@@ -7,74 +7,26 @@
         <div class="col-3 mr-2">
             <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 320px;">
                 <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
                     <span class="fs-4"> Catalogue</span>
                 </a>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link link-dark" aria-current="page">
-                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-                            Anti-inflammatory medications
+                    <li class="nav-item" >
+                        <a th:href="@{'/'}" class="nav-link link-dark" aria-current="page" > All medications
                         </a>
                     </li>
-                    <li>
-                        <a href="#" class="nav-link link-dark">
-                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-                            Anti-allergic medications
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link link-dark">
-                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-                            Antibacterial and antibiotics
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link link-dark">
-                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-                            Antiviral medications
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link link-dark">
-                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-                            Cardiovascular drugs
+                    <li class="nav-item" th:each="cat: ${categories}">
+                        <a th:href="@{'/medications/catalog/' + ${cat.id}}" class="nav-link link-dark" aria-current="page" th:text="${cat.name}">
                         </a>
                     </li>
 
-                    <li>
-                        <a href="#" class="nav-link link-dark">
-                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-                            Dental medications
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link link-dark">
-                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-                            Digestive system
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link link-dark">
-                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-                            Flu and cold
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#" class="nav-link link-dark">
-                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-                            Painkillers and antispasmodics
-                        </a>
-                    </li>
                 </ul>
 
             </div>
 
-
-
         </div>
+
+
         <div class="col-9 ">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
@@ -105,174 +57,31 @@
 
         </div>
 
-        <section class="py-5 text-center container">
-            <div class="row py-lg-5">
-                <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">Online Pharmacy</h1>
-                    <p class="lead text-muted"> Short description of this app. Something short and leading about the collection below—its contents.Make it short and sweet</p>
-                    <p>
-                        <a href="#" class="btn btn-primary my-2">Go Shopping</a>
-                        <a href="#" class="btn btn-secondary my-2">Read articles</a>
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <table class="table table-striped">
-            <tbody>
-            <tr th:each="med: ${medications}">
-                <td>
-                    <div class="album py-5 bg-light">
-                        <div class="container">
-                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                                <div class="col">
-                                    <div class="card shadow-sm">
-                                        <img class="bd-placeholder-img card-img-top"  width="100%" height="225" th:src="@{${med.image}}"  alt="">
-                                        <div class="card-body">
-                                            <h5 class="card-text text-center" th:text = "${med.name} + ' ' + ${med.dosage} + ' ' + ${med.form} + ', '+ ${med.country.name} ">  </h5>
-                                            <h4 class="card-text text-center text-primary fw-bold" th:text = "${med.price} + '₸'" > </h4>
-                                            <div class="text-center">
-                                                <button class = "btn btn-success text-center">Add to Cart</button>
-
-                                            </div>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div class="btn-group">
-                                                    <a th:href="@{'/medications/details/' + ${med.id} + '.html'}" class="btn btn-sm btn-outline-secondary">View</a>
-                                                    <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{'/medications/details/edit/' + ${med.id} + '.html'}" class="btn btn-sm btn-outline-secondary "> Edit </a>
-                                                </div>
-                                                <small class="text-muted">in stock</small>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
-
-
-
-
-
-
 
         <div class="album py-5 bg-light">
             <div class="container">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img class="bd-placeholder-img card-img-top rounded-pill"  width="80%" height="225" src="https://biosfera.kz/image/cache/products/M-016980-320x320.jpg" alt="">
+                <div class="row row-cols-4 row-cols-sm-4 row-cols-md-4 g-3">
+                    <div class="col" th:each="med: ${medications}">
+                        <div class="card shadow-sm h-100">
+                            <img class="bd-placeholder-img card-img-top"  width="100%" height="225" th:src="@{${med.image}}"  alt="">
                             <div class="card-body">
-                                <p class="card-text"> Panavir 0,002% 3g  Russia
-                                <p class="card-text"> 1200</p>
-
+                                <h5 class="card-text text-center" th:text = "${med.name} + ' ' + ${med.dosage} + ' ' + ${med.form} + ', '+ ${med.country.name} ">  </h5>
+                                <h4 class="card-text text-center text-primary fw-bold" th:text = "${med.price} + '₸'" > </h4>
 
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                        <a th:href="@{'/medications/details/' + ${med.id} + '.html'}" class="btn btn-sm btn-outline-secondary">View</a>
+                                        <a sec:authorize="hasAnyRole('ROLE_ADMIN')" th:href="@{'/medications/details/edit/' + ${med.id} + '.html'}" class="btn btn-sm btn-outline-secondary "> Edit </a>
                                     </div>
                                     <small class="text-muted">in stock</small>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img class="bd-placeholder-img card-img-top rounded-pill"  width="80%" height="225" src="https://biosfera.kz/image/cache/products/M-030883-320x320.jpg" alt="">
-                            <div class="card-body">
-                                <p class="card-text"> Medication name dosage and form + country
-                                <p class="card-text"> Medication Price</p>
-
-
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">Medication availability</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
             </div>
         </div>
+
 
 
 

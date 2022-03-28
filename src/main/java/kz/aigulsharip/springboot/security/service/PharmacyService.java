@@ -7,6 +7,7 @@ import kz.aigulsharip.springboot.security.repository.CategoryRepository;
 import kz.aigulsharip.springboot.security.repository.CountryRepository;
 import kz.aigulsharip.springboot.security.repository.MedicationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -71,6 +72,20 @@ public class PharmacyService {
     public List<Medication> getMedicationByName(String name) {
         return medicationRepository.findMedicationByName(name);
     }
+
+
+    public List<Medication> getMedicationByCategory(Long category_id ) {
+        return medicationRepository.findAllByCategories_Id(category_id);
+    }
+
+    public List<Category> getAllCategoriesSorted () {
+        return categoryRepository.findAllByOrderByNameAsc();
+    }
+
+
+
+
+
 
 
 

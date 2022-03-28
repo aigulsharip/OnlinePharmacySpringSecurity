@@ -3,17 +3,17 @@
      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{'/medications/album'}">Online Pharmacy</a>
+        <a class="navbar-brand" th:href="@{'/'}">Online Pharmacy</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{'/medications/album'}">Home</a>
+                    <a class="nav-link" th:href="@{'/'}">Home</a>
                 </li>
                 <li class="nav-item" >
-                    <a class="nav-link" th:href="@{'/medications/'}" >Medications</a>
+                    <a class="nav-link" th:href="@{'/medications/list'}" >Medications List</a>
                 </li>
 
                 <li class="nav-item dropdown" sec:authorize="hasAnyRole('ROLE_ADMIN')">
@@ -53,7 +53,7 @@
                 </li>
 
             </ul>
-            <form class="d-flex" th:action="@{'/medications/searchMedication'}" method="post">
+            <form class="d-flex" th:action="@{'/medications/searchMedication'}" method="get">
                 <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name = "name">
                 <button class="btn btn-outline-light" type="submit">Search</button>
             </form>
